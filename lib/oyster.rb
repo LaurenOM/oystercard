@@ -1,5 +1,5 @@
 class Oyster
-  attr_reader :balance
+  attr_reader :balance, :max_value
 
   def initialize
     @balance = 0
@@ -12,6 +12,10 @@ class Oyster
     else 
       @balance += amount
     end
+  end
+
+  def deduct(amount)
+    @balance -= amount
   end
 
   private 

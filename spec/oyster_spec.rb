@@ -13,6 +13,13 @@ describe Oyster do
   end
 
   it 'raises an error when trying to top_up to more than £90' do
+    
     expect{oyster.top_up(95)}.to raise_error("cannot exceed £90")
   end
+
+  it 'can deduct a fare from balance' do 
+    oyster.top_up(50)
+
+    expect(oyster.deduct(5)).to eq(45)
+  end 
 end
