@@ -22,4 +22,24 @@ describe Oyster do
 
     expect(oyster.deduct(5)).to eq(45)
   end 
+
+  it "checks if the card is in in-journey" do
+  
+    expect(oyster.in_journey).to eq(nil)
+  
+  end
+
+  it "the card is touched in and change status to in-journey" do
+    oyster.touch_in
+
+    expect(oyster.in_journey).to eq(true)
+  end 
+
+  it "the card is touched out and status changed to false" do
+    oyster.touch_in
+    oyster.touch_out
+
+    expect(oyster.in_journey).to eq(false)
+  end
+
 end
