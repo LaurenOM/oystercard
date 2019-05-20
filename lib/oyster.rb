@@ -1,16 +1,17 @@
 class Oyster
-  attr_reader :balance, :max_value
+  attr_reader :balance, :MAX_VALUE
   attr_accessor :in_journey
+
+  MIN_VALUE = 1
+  MAX_VALUE = 90
 
   def initialize
     @balance = 0
-    @max_value = 90
- 
   end
 
   def top_up(amount)
     if balance_exceeded?(amount) 
-      raise "cannot exceed £#{@max_value}"
+      raise "cannot exceed £#{MAX_VALUE}"
     else 
       @balance += amount
     end
@@ -25,7 +26,11 @@ class Oyster
   end
 
   def touch_in
-    @in_journey = true
+    if @balance < MIN_VALUE
+      raise "not enough funds" 
+    else 
+     @in_journey = true
+    end
   end
 
   def touch_out
@@ -36,6 +41,6 @@ class Oyster
   private 
 
   def balance_exceeded?(amount)
-    @balance + amount > @max_value
+    @balance + amount > MAX_VALUE
   end 
 end
