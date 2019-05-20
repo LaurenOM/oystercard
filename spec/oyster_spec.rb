@@ -18,12 +18,6 @@ describe Oyster do
     expect{oyster.top_up(topup_amount)}.to raise_error("cannot exceed £#{Oyster::MAX_VALUE}")
   end
 
-  it 'can deduct a fare from balance' do 
-    oyster.top_up(50)
-
-    expect(oyster.deduct(5)).to eq(45)
-  end 
-
   it "checks if the card is in in-journey" do
   
     expect(oyster.in_journey).to eq(nil)
@@ -50,4 +44,10 @@ describe Oyster do
   it "stops you touching in when balance is lower than £1" do 
     expect{oyster.touch_in}.to raise_error("not enough funds")
   end 
+
+  it "deducts the fare on touch out" do
+    oyster.top_up(10)
+  
+    expect {oyster.touch_out}.to change{oyster.balance}.by(-Oyster::MIN_VALUE)
+  end
 end

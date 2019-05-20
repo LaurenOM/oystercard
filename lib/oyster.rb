@@ -17,10 +17,6 @@ class Oyster
     end
   end
 
-  def deduct(amount)
-    @balance -= amount
-  end
-
   def in_journey?
     !@in_journey
   end
@@ -34,13 +30,18 @@ class Oyster
   end
 
   def touch_out
+    deduct(MIN_VALUE)
     @in_journey = false
   end
-
 
   private 
 
   def balance_exceeded?(amount)
     @balance + amount > MAX_VALUE
   end 
+
+  def deduct(amount)
+    @balance -= amount
+  end
+
 end
