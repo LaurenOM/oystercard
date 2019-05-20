@@ -7,11 +7,16 @@ class Oyster
   end
 
   def top_up(amount)
-    if
-      @balance + amount > @max_value
+    if balance_exceeded?(amount) 
       raise "cannot exceed £#{@max_value}"
-    else
+    else 
       @balance += amount
     end
   end
+
+  private 
+
+  def balance_exceeded?(amount)
+    @balance + amount > @max_value
+  end 
 end
