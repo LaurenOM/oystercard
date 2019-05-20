@@ -38,7 +38,7 @@ describe Oyster do
     oyster.top_up(10)
 
     oyster.touch_in(station)
-    oyster.touch_out
+    oyster.touch_out(station)
 
     expect(oyster.in_journey?).to eq(false)
   end
@@ -50,7 +50,7 @@ describe Oyster do
   it "deducts the fare on touch out" do
     oyster.top_up(10)
   
-    expect {oyster.touch_out}.to change{oyster.balance}.by(-Oyster::MIN_VALUE)
+    expect {oyster.touch_out(station)}.to change{oyster.balance}.by(-Oyster::MIN_VALUE)
   end
 
   it 'stores station name when touching in' do 
@@ -60,4 +60,11 @@ describe Oyster do
 
     expect(oyster.entry_station).to eq("London Bridge")
   end 
+
+  it "adds station to station history when touch in" do
+    oyster.top_up(3)
+    oyster.touch_in("Barking")
+    oyster.touch_out("Ilford")
+    expect(oyster.station_history).to include({entry_station: "Barking", exit_station: "Ilford"})
+  end
 end
