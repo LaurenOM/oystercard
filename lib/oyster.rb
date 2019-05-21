@@ -8,7 +8,6 @@ class Oyster
     @balance = 0
     @entry_station = nil
     @station_history = []
-
   end
 
   def top_up(amount)
@@ -41,7 +40,7 @@ class Oyster
   end
 
   def update_history
-    journey = {entry_station: @entry_station, exit_station: @exit_station}
+    journey = { :entry_station => @entry_station, :exit_station => @exit_station }
     @station_history.push(journey)
   end
 
